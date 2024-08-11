@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Wearable Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        .data-section { margin-bottom: 20px; }
+        .data-item { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Smart Wearable Dashboard</h1>
+    <div class="data-section" id="latest-data">
+        <h2>Latest Data</h2>
+        <div id="latest-heart-rate"></div>
+        <div id="latest-steps"></div>
+        <div id="latest-sleep-quality"></div>
+    </div>
+
+    <script>
+        async function fetchLatestData() {
+            const response = await fetch('/latest');
+            const data = await response.json();
+
+            document.getElementById('latest-heart-rate').textContent = 'Heart Rate: ' + data.heart_rate;
+            document.getElementById('latest-steps').textContent = 'Steps: ' + data.steps;
+            document.getElementById('latest-sleep-quality').textContent = 'Sleep Quality: ' + data.sleep_quality;
+        }
+
+        fetchLatestData();
+        setInterval(fetchLatestData, 1000);  // Update every second
+    </script>
+</body>
+</html>
